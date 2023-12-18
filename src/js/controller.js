@@ -23,9 +23,6 @@ const showRecipe = async () => {
     const data = await res.json();
     if (!res.ok) throw new Error(`${res.status} - ${data.message}`);
 
-    console.log(res);
-    console.log(data);
-
     let { recipe } = data.data;
     recipe = {
       cookingTime: recipe.cooking_time,
