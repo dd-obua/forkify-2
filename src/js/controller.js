@@ -1,6 +1,7 @@
-import { mark } from 'regenerator-runtime';
 import '../styles/main.scss';
 import icons from '../img/icons.svg';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -11,10 +12,6 @@ const timeout = function (s) {
     }, s * 1000);
   });
 };
-
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////
 
 const renderSpinner = (parentElement) => {
   const markup = `
