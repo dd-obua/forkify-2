@@ -1,3 +1,5 @@
+import * as model from './model.js';
+
 import '../styles/main.scss';
 import icons from '../img/icons.svg';
 import 'core-js/stable';
@@ -27,40 +29,24 @@ const renderSpinner = (parentElement) => {
 
 const showRecipe = async () => {
   try {
+    // Render spinner
+    renderSpinner(recipeContainer);
+
     // Get recipe id
     const id = window.location.hash.slice(1);
     if (!id) return;
 
-    // 1. Render spinner
-    renderSpinner(recipeContainer);
+    // Load recipe
+    await model.loadRecipe(id);
 
-    // 2. Load recipe
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-      // `https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886`
-    );
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${res.status} - ${data.message}`);
-
-    let { recipe } = data.data;
-    recipe = {
-      cookingTime: recipe.cooking_time,
-      id: recipe.id,
-      image: recipe.image_url,
-      ingredients: recipe.ingredients,
-      publisher: recipe.publisher,
-      servings: recipe.servings,
-      sourceUrl: recipe.source_url,
-      title: recipe.title,
-    };
-    console.log(recipe);
-
-    // 3. Render recipe
+    // Render recipe
     const markup = `
       <figure class="recipe__fig">
-      <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img" />
+      <img src="${model.state.recipe.image}" alt="${
+      model.state.recipe.title
+    }" class="recipe__img" />
         <h1 class="recipe__title">
-          <span>${recipe.title}</span>
+          <span>${model.state.recipe.title}</span>
         </h1>
       </figure>
 
@@ -70,7 +56,7 @@ const showRecipe = async () => {
             <use href="${icons}#icon-clock"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--minutes">
-            ${recipe.cookingTime}
+            ${model.state.recipe.cookingTime}
           </span>
           <span class="recipe__info-text">minutes</span>
         </div>
@@ -79,7 +65,7 @@ const showRecipe = async () => {
             <use href="${icons}#icon-users"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--people">
-            ${recipe.servings}
+            ${model.state.recipe.servings}
           </span>
           <span class="recipe__info-text">servings</span>
 
@@ -112,7 +98,7 @@ const showRecipe = async () => {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-          ${recipe.ingredients
+          ${model.state.recipe.ingredients
             .map((ingred) => {
               return `
                 <li class="recipe__ingredient">
@@ -135,12 +121,12 @@ const showRecipe = async () => {
         <h2 class="heading--2">How to cook it</h2>
         <p class="recipe__directions-text">
           This recipe was carefully designed and tested by
-          <span class="recipe__publisher">${recipe.publisher}</span>. 
+          <span class="recipe__publisher">${model.state.recipe.publisher}</span>. 
           Please check out directions at their website.
         </p>
         <a
           class="btn--small recipe__btn"
-          href="${recipe.sourceUrl}"
+          href="${model.state.recipe.sourceUrl}"
           target="_blank"
         >
           <span>Directions</span>

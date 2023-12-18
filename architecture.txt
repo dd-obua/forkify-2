@@ -1,0 +1,15 @@
+SOFTWARE ARCHITECTURE
+
+Reasons for Software Architecture
+1.Structure 
+2.Maintainability
+3.Expandibility
+
+Components of Software Architecture
+1.Business Logi
+2.State
+3.HTTP Library
+4.Application Logic (Router)
+5.Presentation Logic (UI Layer)
+
+MODEL VIEW CONTROLLER
