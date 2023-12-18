@@ -1,3 +1,5 @@
+import '../styles/main.scss';
+
 const recipeContainer = document.querySelector('.recipe');
 
 const timeout = function (s) {
