@@ -6,8 +6,13 @@ class RecipeView {
 
   render(data) {
     this._data = data;
+    const markup = this._generateMarkup();
+    this._parentElement.innerHTML = '';
+    this._parentElement.insertAdjacentHTML('beforeend', markup);
+  }
 
-    const markup = `
+  _generateMarkup() {
+    return `
       <figure class="recipe__fig">
         <img
           src="${this._data.image}"
@@ -105,10 +110,6 @@ class RecipeView {
         </a>
       </div>
     `;
-
-    this._parentElement.innerHTML = '';
-
-    this._parentElement.insertAdjacentHTML('beforeend', markup);
   }
 }
 
