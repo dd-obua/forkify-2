@@ -28,6 +28,10 @@ class RecipeView {
     this._parentElement.innerHTML = '';
   }
 
+  addHandlerRender(handler) {
+    ['load', 'hashchange'].forEach((event) => window.addEventListener(event, handler));
+  }
+
   _generateMarkup() {
     return `
       <figure class="recipe__fig">
