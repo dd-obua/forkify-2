@@ -43,7 +43,6 @@ export const loadSearchResults = async (query) => {
         title: recipe.title,
       };
     });
-    console.log(state.search.results);
   } catch (error) {
     throw error;
   }
