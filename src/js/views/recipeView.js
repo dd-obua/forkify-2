@@ -4,12 +4,7 @@ import View from './view.js';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
-
-  addHandlerRender(handler) {
-    ['load', 'hashchange'].forEach((event) => {
-      window.addEventListener(event, handler);
-    });
-  }
+  _data;
 
   _generateMarkup() {
     return `

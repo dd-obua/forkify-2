@@ -1,8 +1,15 @@
 import icons from '../../img/icons.svg';
 
 export default class View {
-  _data;
   _parentElement;
+  _errorMessage = 'We could not find that recipe. Please try another one.';
+  _message = '';
+
+  addHandlerRender(handler) {
+    ['load', 'hashchange'].forEach((event) => {
+      window.addEventListener(event, handler);
+    });
+  }
 
   render(data) {
     this._data = data;
@@ -18,6 +25,32 @@ export default class View {
           <use href="${icons}#icon-loader"></use>
         </svg>
       </div>
+    `;
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderMessage(message = this._message) {
+    const markup = `
+      <div class="message">
+        <svg>
+          <use href="${icons}#icon-smile"></use>
+        </svg>
+      </div>
+      <p>${message}</p> 
+    `;
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderError(message = this._errorMessage) {
+    const markup = `
+      <div class="error">
+        <svg>
+          <use href="${icons}#icon-alert-triangle"></use>
+        </svg>
+      </div>
+      <p>${message}</p> 
     `;
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
