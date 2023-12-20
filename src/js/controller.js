@@ -4,6 +4,7 @@ import recipeView from './views/recipeView.js';
 import '../styles/main.scss';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import searchView from './views/searchView.js';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -26,8 +27,18 @@ const controlRecipes = async () => {
   }
 };
 
+const controlSearch = async () => {
+  try {
+    const query = searchView.getQuery();
+    await model.loadSearchResults(query);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const init = () => {
   recipeView.addHandlerRender(controlRecipes);
+  searchView.addHandlerSearch(controlSearch);
 };
 
 init();
