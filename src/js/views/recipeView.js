@@ -1,31 +1,14 @@
 import icons from '../../img/icons.svg';
 import { Fraction } from 'fractional';
+import View from './view.js';
 
-class RecipeView {
+class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
-  _data;
 
-  render(data) {
-    this._data = data;
-    const markup = this._generateMarkup();
-    this._clear();
-    this._parentElement.insertAdjacentHTML('beforeend', markup);
-  }
-
-  renderSpinner() {
-    const markup = `
-      <div class="spinner">
-        <svg>
-          <use href="${icons}#icon-loader"></use>
-        </svg>
-      </div>
-    `;
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  _clear() {
-    this._parentElement.innerHTML = '';
+  addHandlerRender(handler) {
+    ['load', 'hashchange'].forEach((event) => {
+      window.addEventListener(event, handler);
+    });
   }
 
   _generateMarkup() {
