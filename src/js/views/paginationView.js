@@ -24,6 +24,7 @@ class PaginationView extends View {
       </button>
     `;
 
+    // Set page number boundary
     if (currentPage < 1 || currentPage > numPages) return;
 
     // On page 1 and there are other pages
