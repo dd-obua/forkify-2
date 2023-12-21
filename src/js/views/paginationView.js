@@ -31,10 +31,10 @@ class PaginationView extends View {
     if (currentPage === 1 && numPages > 1) return nextBtn;
 
     // On the last page
-    if (currentPage === numPages) return prevBtn;
+    if (currentPage === numPages && numPages > 1) return prevBtn;
 
     // On any other page
-    if (currentPage > 1 && numPages > 1) return `${prevBtn} ${nextBtn}`;
+    if (currentPage < numPages) return `${prevBtn} ${nextBtn}`;
 
     // On page 1 and there are no other pages
     return '';
