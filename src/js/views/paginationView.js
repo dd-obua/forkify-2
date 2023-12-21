@@ -4,11 +4,23 @@ import icons from '../../img/icons.svg';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  addHandlerClick(handler) {
+    this._parentElement.addEventListener('click', (event) => {
+      const btn = event.target.closest('button');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+      handler(goToPage);
+    });
+  }
+
   _generateMarkup() {
     const currentPage = this._data.page;
     const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
     const prevBtn = `
-      <button class="btn--inline pagination__btn--prev">
+      <button 
+        class="btn--inline pagination__btn--prev"
+        data-goto=" ${currentPage - 1}"
+      >
         <svg class="search__icon">
           <use href="${icons}#icon-arrow-left"></use>
         </svg>
@@ -16,7 +28,10 @@ class PaginationView extends View {
       </button>
     `;
     const nextBtn = `
-      <button class="btn--inline pagination__btn--next">
+      <button 
+        class="btn--inline pagination__btn--next"
+        data-goto="${currentPage + 1}"
+      >
         <span>Page ${currentPage + 1}</span>
         <svg class="search__icon">
           <use href="${icons}#icon-arrow-right"></use>
@@ -42,47 +57,3 @@ class PaginationView extends View {
 }
 
 export default new PaginationView();
-
-// _generateMarkup() {
-// const currentPage = this._data.page;
-// const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
-
-// if (currentPage < 1) return;
-
-// On page 1 and there are other pages
-// if (currentPage === 1 && numPages > 1) this._next(currentPage);
-
-// On page 1 and there are no other pages
-// if (currentPage === 1 && numPages === 1) return 'Only one page.';
-
-// On the last page
-// if (currentPage === numPages && numPages > 1) this._prev(currentPage);
-
-// On any other page
-// if (currentPage > 1 && currentPage < numPages) {
-// this._prev(currentPage);
-// this._next(currentPage);
-//   }
-// }
-
-// _prev(currentPage) {
-//   `
-//     <button class="btn--inline pagination__btn--prev">
-//       <svg class="search__icon">
-//         <use href="${icons}#icon-arrow-left"></use>
-//       </svg>
-//       <span>Page ${currentPage - 1}</span>
-//     </button>
-//   `;
-// }
-
-// _next(currentPage) {
-//   `
-//     <button class="btn--inline pagination__btn--next">
-//       <span>Page ${currentPage + 1}</span>
-//       <svg class="search__icon">
-//         <use href="${icons}#icon-arrow-right"></use>
-//       </svg>
-//     </button>
-//   `;
-// }
