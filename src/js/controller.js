@@ -51,7 +51,7 @@ const controlSearch = async () => {
   }
 };
 
-export const controlPagination = (goToPage) => {
+const controlPagination = (goToPage) => {
   // Render new search results
   resultsView.render(model.getSearchResultsPage(goToPage));
 
@@ -59,8 +59,17 @@ export const controlPagination = (goToPage) => {
   paginationView.render(model.state.search);
 };
 
+const controlServings = (updateTo) => {
+  // Update recipe servings (in state)
+  model.updateServings(updateTo);
+
+  // Update recipe view
+  recipeView.render(model.state.recipe);
+};
+
 const init = () => {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearch);
   paginationView.addHandlerClick(controlPagination);
 };

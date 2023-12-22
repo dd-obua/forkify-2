@@ -5,12 +5,6 @@ export default class View {
   _errorMessage = 'We could not find that recipe. Please try another one.';
   _message = '';
 
-  addHandlerRender(handler) {
-    ['load', 'hashchange'].forEach((event) => {
-      window.addEventListener(event, handler);
-    });
-  }
-
   render(data) {
     if (!data || (Array.isArray(data) && data.length < 1)) return this.renderError();
     this._data = data;
