@@ -8,6 +8,19 @@ class RecipeView {
     this._parentElement.innerHTML = '';
   }
 
+  renderSpinner(parentElement) {
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+    `;
+
+    this._clear();
+    parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
   render(data) {
     this._data = data;
     const markup = this._generateMarkup();
