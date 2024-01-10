@@ -21,7 +21,7 @@ const renderSpinner = (parentElement) => {
   parentElement.insertAdjacentHTML('afterbegin', markup);
 };
 
-const showRecipe = async () => {
+const controlRecipies = async () => {
   try {
     const id = window.location.hash.slice(1);
     if (!id) return;
@@ -37,6 +37,5 @@ const showRecipe = async () => {
     console.error(error);
   }
 };
-// showRecipe();
 
-['load', 'hashchange'].forEach((event) => window.addEventListener(event, showRecipe));
+['load', 'hashchange'].forEach((event) => window.addEventListener(event, controlRecipies));
