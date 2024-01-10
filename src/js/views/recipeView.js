@@ -8,6 +8,10 @@ class RecipeView {
     this._parentElement.innerHTML = '';
   }
 
+  _insertMarkup(markup, position) {
+    return this._parentElement.insertAdjacentHTML(position, markup);
+  }
+
   renderSpinner(parentElement) {
     const markup = `
       <div class="spinner">
@@ -18,14 +22,14 @@ class RecipeView {
     `;
 
     this._clear();
-    parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._insertMarkup(markup, 'afterbegin');
   }
 
   render(data) {
     this._data = data;
     const markup = this._generateMarkup();
     this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._insertMarkup(markup, 'afterbegin');
   }
 
   _generateMarkup() {
