@@ -4,10 +4,14 @@ class RecipeView {
   _parentElement = document.querySelector('.recipe');
   _data;
 
+  _clear() {
+    this._parentElement.innerHTML = '';
+  }
+
   render(data) {
     this._data = data;
     const markup = this._generateMarkup();
-    this._parentElement.innerHTML = '';
+    this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
