@@ -3,8 +3,13 @@ import { getData } from './helpers';
 
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
+// Loading recipes
 export const loadRecipe = async (id) => {
   try {
     // Loading recipe
@@ -20,6 +25,25 @@ export const loadRecipe = async (id) => {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Load search results
+export const loadSearchResults = async (query) => {
+  try {
+    state.search.query = query;
+    const data = await getData(`${API_URL}?search=${query}`);
+    const { recipes } = data.data;
+    state.search.results = recipes.map((rec) => {
+      return {
+        id: rec.id,
+        image: rec.image_url,
+        publisher: rec.publisher,
+        title: rec.title,
+      };
+    });
   } catch (error) {
     throw error;
   }
