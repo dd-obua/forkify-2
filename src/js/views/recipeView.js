@@ -33,6 +33,12 @@ class RecipeView {
     this._insertMarkup(markup, 'afterbegin');
   }
 
+  addHandlerRender(handler) {
+    ['load', 'hashchange'].forEach((event) =>
+      window.addEventListener(event, handler)
+    );
+  }
+
   _generateMarkup() {
     const recipe = this._data;
 
