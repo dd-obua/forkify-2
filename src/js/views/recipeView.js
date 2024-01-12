@@ -15,7 +15,7 @@ class RecipeView {
     return this._parentElement.insertAdjacentHTML(position, markup);
   }
 
-  renderSpinner(parentElement) {
+  renderSpinner() {
     const markup = `
       <div class="spinner">
         <svg>

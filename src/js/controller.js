@@ -5,15 +5,14 @@ import 'regenerator-runtime/runtime';
 
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
-
-const recipeContainer = document.querySelector('.recipe');
+import searchView from './views/searchView.js';
 
 const controlRecipies = async () => {
   try {
     const id = window.location.hash.slice(1);
     if (!id) return;
 
-    recipeView.renderSpinner(recipeContainer);
+    recipeView.renderSpinner();
 
     // Load recipe
     await model.loadRecipe(id);
@@ -26,8 +25,24 @@ const controlRecipies = async () => {
   }
 };
 
-const init = () => {
-  recipeView.addHandlerRender(controlRecipies);
+const controlSearchResults = async () => {
+  try {
+    // Get search query
+    const query = searchView.getQuery();
+    if (!query) return;
+
+    // Load search results
+    await model.loadSearchResults(query);
+
+    // Render
+    console.log(model.state.search.results);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
+const init = () => {
+  recipeView.addHandlerRender(controlRecipies);
+  searchView.addHandlerSearch(controlSearchResults);
+};
 init();
