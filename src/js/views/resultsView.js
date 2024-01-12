@@ -3,10 +3,11 @@ import icons from '../../img/icons.svg';
 
 class ResultsView extends View {
   _parentElement = document.querySelector('.results');
+  _errorMessage = 'No recipes found for your query. Please try another one.';
+  _message = '';
 
   _generateMarkup() {
     const recipes = this._data;
-    console.log(recipes);
     return recipes.map(this._generatePreviewMarkup).join('');
   }
 
