@@ -4,6 +4,15 @@ import icons from '../../img/icons.svg';
 class PageinationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  addHandlerClick(handler) {
+    this._parentElement.addEventListener('click', (event) => {
+      const btn = event.target.closest('button');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+      handler(goToPage);
+    });
+  }
+
   _generateMarkup() {
     const search = this._data;
     const pages = Math.ceil(search.results.length / search.resultsPerPage);
@@ -25,7 +34,10 @@ class PageinationView extends View {
 
   _prev(page) {
     return `
-      <button class="btn--inline pagination__btn--prev">
+      <button 
+        class="btn--inline pagination__btn--prev"
+        data-goto="${page - 1}"
+      >
         <svg class="search__icon">
           <use href="${icons}#icon-arrow-left"></use>
         </svg>
@@ -36,7 +48,10 @@ class PageinationView extends View {
 
   _next(page) {
     return `
-      <button class="btn--inline pagination__btn--next">
+      <button 
+        class="btn--inline pagination__btn--next"
+        data-goto="${page + 1}"
+      >
         <span>Page ${page + 1}</span>
         <svg class="search__icon">
           <use href="${icons}#icon-arrow-right"></use>
