@@ -65,4 +65,7 @@ export const updateServings = (newServings) => {
   state.recipe.ingredients.forEach((ing) => {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
   });
+
+  // Update servings in the state
+  state.recipe.servings = newServings;
 };
