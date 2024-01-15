@@ -21,7 +21,7 @@ class RecipeView extends View {
     });
   }
 
-  addHandlerAddBookmark(handler) {
+  addHandlerBookmark(handler) {
     this._parentElement.addEventListener('click', (event) => {
       const btn = event.target.closest('.btn--bookmark');
       if (!btn) return;
