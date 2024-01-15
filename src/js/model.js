@@ -9,6 +9,7 @@ export const state = {
     page: 1,
     resultsPerPage: RESULTS_PER_PAGE,
   },
+  bookmarks: [],
 };
 
 // Loading recipes
@@ -67,4 +68,9 @@ export const updateServings = (newServings) => {
 
   // Update servings in the state
   state.recipe.servings = newServings;
+};
+
+export const addBookmark = (recipe) => {
+  // Add bookmark
+  state.bookmarks.push(recipe);
 };
